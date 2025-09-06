@@ -1,0 +1,28 @@
+{% extends "tracker/base.html" %}
+
+{% block content %}
+    <h2>{{ title }}</h2>
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li style="color: red;">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+
+    <p>
+        Already have an account?
+        {% if "Student" in title %}
+            <a href="{% url 'student_login' %}">Student Login</a>
+        {% else %}
+            <a href="{% url 'teacher_login' %}">Teacher Login</a>
+        {% endif %}
+    </p>
+{% endblock %}

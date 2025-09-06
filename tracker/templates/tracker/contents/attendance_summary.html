@@ -1,0 +1,17 @@
+<h2>Attendance Summary - {{ course.name }}</h2>
+<table>
+    <tr>
+        <th>Student</th>
+        <th>Total Days</th>
+        <th>Days Present</th>
+        <th>% Attendance</th>
+    </tr>
+    {% for s in summary %}
+    <tr>
+        <td>{{ s.student.full_name }}</td>
+        <td>{{ s.total_days }}</td>
+        <td>{{ s.present_days }}</td>
+        <td>{{ s.attendance_percentage|floatformat:2 }}%</td>
+    </tr>
+    {% endfor %}
+</table>

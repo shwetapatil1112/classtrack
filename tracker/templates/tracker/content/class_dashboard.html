@@ -1,0 +1,50 @@
+{% extends "tracker/base.html" %}
+{% load static %}
+
+{% block content %}
+<h2>Class {{ class_number }} Students</h2>
+
+<div class="students-grid">
+    {% for student in students %}
+        <a href="{% url 'mark_attendance_student' student.id %}" style="text-decoration: none; color: inherit;">
+            <div class="student-card">
+                {% if student.profile_photo %}
+                    <img src="{{ student.profile_photo.url }}" alt="{{ student.full_name }}">
+                {% else %}
+                    <img src="{% static 'tracker/default-profile.png' %}" alt="{{ student.full_name }}">
+                {% endif %}
+                <h3>{{ student.full_name }}</h3>
+                <p>Enrollment: {{ student.enrollment_number }}</p>
+                <p>Email: {{ student.email }}</p>
+            </div>
+        </a>
+    {% empty %}
+        <p>No students enrolled in this class.</p>
+    {% endfor %}
+</div>
+
+<style>
+.students-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+.student-card {
+    background: #f7f7f7;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+.student-card:hover {
+    transform: scale(1.05);
+}
+.student-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+</style>
+{% endblock %}

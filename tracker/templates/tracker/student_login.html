@@ -1,0 +1,26 @@
+{% extends "tracker/base_login.html" %}
+
+{% block content %}
+<h3 class="text-center text-primary">🎓 Student Login</h3>
+<form method="post">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label>Username</label>
+    <input class="form-control" name="username" required>
+  </div>
+  <div class="mb-3">
+    <label>Password</label>
+    <input type="password" class="form-control" name="password" required>
+  </div>
+  <button class="btn btn-primary w-100">Login</button>
+</form>
+
+<!-- ✅ Register link added here -->
+<p class="mt-3 text-center">
+  Don’t have an account? <a href="{% url 'student_register' %}">Register here</a>
+</p>
+
+{% for message in messages %}
+  <p class="text-danger">{{ message }}</p>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "tracker/base.html" %}
+{% load static %}
+
+{% block content %}
+<h2>Mark Attendance for {{ student.full_name }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {% for enrollment in courses %}
+        <p>{{ enrollment.course.name }}:
+            <select name="status_{{ enrollment.course.id }}">
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+                <option value="Late">Late</option>
+                <option value="Excused">Excused</option>
+            </select>
+        </p>
+    {% endfor %}
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

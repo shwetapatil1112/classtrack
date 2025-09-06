@@ -1,0 +1,7 @@
+{% url 'schedule' %}
+<h2>My Schedule</h2>
+<ul>
+  {% for course in courses %}
+    <li>{{ course.code }} - {{ course.name }}</li>
+  {% endfor %}
+</ul>

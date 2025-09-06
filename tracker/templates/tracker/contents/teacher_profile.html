@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Teacher Profile{% endblock %}
+
+{% block content %}
+<style>
+.profile-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #007BFF;
+}
+
+.profile-table {
+    width: 100%;
+    margin-top: 1.5rem;
+    border-collapse: collapse;
+}
+
+.profile-table th, .profile-table td {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-table th {
+    width: 30%;
+    background-color: #f7f7f7;
+    font-weight: 600;
+}
+</style>
+
+<div class="profile-container">
+
+    <div class="text-center">
+        {% if teacher.profile_photo %}
+            <img src="{{ teacher.profile_photo.url }}" alt="Profile Photo" class="profile-photo">
+        {% else %}
+            <img src="{% static 'images/default_user.png' %}" alt="Profile Photo" class="profile-photo">
+        {% endif %}
+    </div>
+
+    <table class="profile-table">
+        <tr><th>Full Name</th><td>{{ teacher.user.get_full_name }}</td></tr>
+        <tr><th>Email</th><td>{{ teacher.user.email }}</td></tr>
+        <tr><th>Employee ID</th><td>{{ teacher.employee_id }}</td></tr>
+        <tr><th>Department</th><td>{{ teacher.department }}</td></tr>
+        <tr><th>Phone</th><td>{{ teacher.phone }}</td></tr>
+        <tr><th>Address</th><td>{{ teacher.address }}</td></tr>
+    </table>
+</div>
+{% endblock %}

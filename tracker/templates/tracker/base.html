@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassTrack</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f0f4f8;
+        }
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        nav {
+            margin: 10px;
+            text-align: center;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 5px;
+            background: #ecf0f1;
+        }
+        nav a:hover {
+            background: #3498db;
+            color: white;
+        }
+        .container {
+            padding: 20px;
+        }
+        footer {
+            text-align: center;
+            background: #2c3e50;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        marquee {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📘 ClassTrack</h1>
+    </header>
+
+    <marquee behavior="scroll" direction="left">Welcome to ClassTrack 🚀</marquee>
+
+    <nav>
+    <a href="/">Home</a>
+
+    {% if user.is_authenticated %}
+        
+        <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'student_login' %}">Student Login</a>
+        <a href="{% url 'teacher_login' %}">Teacher Login</a>
+        <a href="{% url 'student_register' %}">Student Register</a>
+        <a href="{% url 'teacher_register' %}">Teacher Register</a>
+    {% endif %}
+</nav>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>&copy; 2025 ClassTrack </p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Welcome, {{ user.username }}</h2>
+<ul>
+  <li>Total Students: {{ student_count }}</li>
+  <li>Total Courses: {{ course_count }}</li>
+</ul>
+{% endblock %}

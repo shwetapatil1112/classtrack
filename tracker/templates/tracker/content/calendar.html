@@ -1,0 +1,158 @@
+{% extends "tracker/base.html" %}
+
+{% load static %}
+
+{% block title %}2025 Calendar{% endblock %}
+
+{% block content %}
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+    <h2 style="color:#007BFF;">📅 2025 Academic Calendar</h2>
+    <a href="{% url 'student_dashboard' %}" 
+       style="background:#007BFF; color:#fff; padding:0.5rem 1rem; border-radius:5px; text-decoration:none; transition:background 0.2s;">
+        ← Back to Dashboard
+    </a>
+</div>
+
+<!-- Horizontal scroll container -->
+<div id="calendar-wrapper" style="position:relative;">
+
+    <!-- Left Scroll Button -->
+    <button onclick="scrollCalendar(-1)" style="
+        position:absolute; left:0; top:40%; z-index:10;
+        background:#007BFF; color:#fff; border:none; border-radius:50%;
+        width:40px; height:40px; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.2);">
+        ⬅
+    </button>
+
+    <div id="calendar-container" style="
+        display:flex; 
+        flex-direction: row; 
+        overflow-x: auto; 
+        scroll-behavior: smooth;
+        gap: 2rem; 
+        padding: 1rem;
+        white-space: nowrap;
+    ">
+        {% for month in calendar_data_list %}
+        <div class="month-card" style="
+            background:#f9f9f9; 
+            border-radius:10px; 
+            box-shadow:0 5px 15px rgba(0,0,0,0.1); 
+            width:280px; 
+            flex:0 0 auto; 
+            padding:1rem; 
+            transition:transform 0.3s;
+        ">
+            <h3 style="text-align:center; color:#007BFF;">{{ month.name }}</h3>
+            <table style="width:100%; border-collapse:collapse; text-align:center;">
+                <thead>
+                    <tr>
+                        <th style="color:#d9534f;">Sun</th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th style="color:#5bc0de;">Sat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for week in month.weeks %}
+                    <tr>
+                    {% for day in week %}
+                        {% if day == 0 %}
+                            <td style="padding:0.5rem; background:#f1f1f1;"></td>
+                        {% else %}
+                            <td class="calendar-day" data-day="{{ day }}" style="
+                                padding:0.5rem; 
+                                border-radius:5px; 
+                                cursor:pointer;
+                                transition: background 0.2s;">
+                                {{ day }}
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Right Scroll Button -->
+    <button onclick="scrollCalendar(1)" style="
+        position:absolute; right:0; top:40%; z-index:10;
+        background:#007BFF; color:#fff; border:none; border-radius:50%;
+        width:40px; height:40px; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.2);">
+        ➡
+    </button>
+
+</div>
+
+<script>
+// Define events with type for coloring
+const events = {
+    "1-15": {name:"New Semester Starts", type:"lecture"},
+    "2-10": {name:"Assignment 1 Due", type:"assignment"},
+    "3-25": {name:"Midterm Exam", type:"exam"},
+    "5-30": {name:"Online Lecture", type:"lecture"},
+    "8-30": {name:"Final Assignment Submission", type:"assignment"},
+    "12-20": {name:"Winter Break Starts", type:"holiday"}
+};
+
+// Event colors
+const eventColors = {
+    "lecture":"#28a745",    // green
+    "assignment":"#ffc107", // yellow
+    "exam":"#dc3545",       // red
+    "holiday":"#17a2b8"     // blue
+};
+
+// Add event colors & hover effects
+document.addEventListener("DOMContentLoaded", function(){
+    document.querySelectorAll(".calendar-day").forEach(function(td){
+        const monthName = td.closest(".month-card").querySelector("h3").innerText;
+        const monthIndex = new Date(monthName + " 1, 2025").getMonth() + 1;
+        const day = td.dataset.day;
+        const key = monthIndex + "-" + day;
+
+        if(events[key]){
+            td.style.background = eventColors[events[key].type];
+            td.style.color = "#fff";
+            td.title = events[key].name;
+        }
+
+        td.addEventListener("mouseover", function(){
+            td.style.transform = "scale(1.1)";
+            td.style.boxShadow = "0 4px 8px rgba(0,0,0,0.2)";
+        });
+        td.addEventListener("mouseout", function(){
+            td.style.transform = "scale(1)";
+            td.style.boxShadow = "none";
+        });
+    });
+});
+
+// Horizontal scroll buttons
+function scrollCalendar(direction){
+    const container = document.getElementById("calendar-container");
+    container.scrollBy({ left: direction * 300, behavior: 'smooth' });
+}
+</script>
+
+<style>
+.month-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+.calendar-day {
+    font-weight: bold;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+a:hover {
+    background:#0056b3;
+}
+</style>
+
+{% endblock %}

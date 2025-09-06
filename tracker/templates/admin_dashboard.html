@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center">
+  <h2>⚙️ Admin Dashboard</h2>
+  <p>Welcome, {{ user.username }}!</p>
+
+  <ul class="list-group">
+    <li class="list-group-item"><a href="#">👥 Manage Students</a></li>
+    <li class="list-group-item"><a href="#">👩‍🏫 Manage Teachers</a></li>
+    <li class="list-group-item"><a href="#">📊 Reports</a></li>
+  </ul>
+</div>
+{% endblock %}

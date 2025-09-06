@@ -1,0 +1,87 @@
+{% extends "tracker/base.html" %}
+{% load static %}
+
+{% block title %}Manage Courses{% endblock %}
+
+{% block content %}
+<style>
+/* Page wrapper */
+.courses-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Heading */
+.courses-heading {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #118ab2;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Grid layout */
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+/* Class Card */
+.course-card {
+    background: linear-gradient(135deg, #06d6a0, #118ab2);
+    color: white;
+    border-radius: 20px;
+    padding: 50px 20px;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover Effect */
+.course-card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255,255,255,0.1);
+    transform: rotate(25deg);
+    transition: all 0.5s ease;
+}
+
+.course-card:hover::before {
+    top: 0;
+    left: 0;
+}
+
+.course-card:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+    background: linear-gradient(135deg, #118ab2, #06d6a0);
+}
+</style>
+
+<div class="courses-container">
+    <h1 class="courses-heading">📚 Manage Courses </h1>
+
+    <div class="courses-grid">
+        <a href="{% url 'class_dashboard' 5 %}" class="course-card">🎓 Class 5th</a>
+        <a href="{% url 'class_dashboard' 6 %}" class="course-card">🎓 Class 6th</a>
+        <a href="{% url 'class_dashboard' 7 %}" class="course-card">🎓 Class 7th</a>
+        <a href="{% url 'class_dashboard' 8 %}" class="course-card">🎓 Class 8th</a>
+        <a href="{% url 'class_dashboard' 9 %}" class="course-card">🎓 Class 9th</a>
+        <a href="{% url 'class_dashboard' 10 %}" class="course-card">🎓 Class 10th</a>
+    </div>
+</div>
+{% endblock %}
